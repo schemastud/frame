@@ -1,7 +1,9 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-    entry: ['src/index.ts'],
+    // Object form so both entries keep distinct output names (dist/index.js +
+    // dist/shadcn.js); a bare array would collide on the `index` basename.
+    entry: { index: 'src/index.ts', shadcn: 'src/shadcn/index.tsx' },
     format: ['esm'],
     dts: true,
     sourcemap: true,

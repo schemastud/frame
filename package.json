@@ -10,8 +10,13 @@
         ".": {
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js"
+        },
+        "./shadcn": {
+            "types": "./dist/shadcn.d.ts",
+            "import": "./dist/shadcn.js"
         }
     },
+    "sideEffects": false,
     "files": [
         "dist",
         "src",
