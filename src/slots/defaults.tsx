@@ -155,6 +155,11 @@ export function DefaultFormBody({
                 schemaFetcher={schemaFetcher}
                 disabled={readOnly}
                 formContext={{ intentBus, readOnly }}
+                // The frame's SaveBar is the one save control; suppress RJSF's own
+                // default submit button so the edit surface doesn't show both a
+                // "Submit" and a "Save". The form's onSubmit still fires (Enter key,
+                // programmatic submit) and drives the same save path.
+                uiSchema={{ 'ui:submitButtonOptions': { norender: true } }}
                 onChange={(e: { formData?: unknown }) => onChange((e.formData ?? {}) as Row)}
                 onSubmit={(e: { formData?: unknown }) => onSubmit((e.formData ?? {}) as Row)}
             />

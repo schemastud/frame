@@ -167,6 +167,13 @@ export interface EditShellProps {
     readOnly?: boolean;
     container?: 'panel' | 'page';
     form?: FormMode;
+    /**
+     * Show the splicewire/raw mode toggle — a dev/debug affordance for previewing a
+     * field with host widgets stripped. Off by default: a resource already declares
+     * its `form` mode, so the runtime switch is noise in the product UX. Opt in
+     * (e.g. behind `import.meta.env.DEV`) to expose it.
+     */
+    showModeToggle?: boolean;
     onSaved?: (record: Row) => void;
     onCancel?: () => void;
     slots?: Partial<EditSlots>;

@@ -242,6 +242,32 @@ describe('EditShell', () => {
         expect(screen.queryByText('Save')).toBeNull();
     });
 
+    it('hides the splicewire/raw mode toggle by default (a dev-only affordance)', async () => {
+        const transport = makeTransport();
+        const Wrapper = wrap(makeInjection(transport));
+
+        render(<EditShell resource="widgets" id={null} slots={{ FormBody: MockFormBody }} />, {
+            wrapper: Wrapper,
+        });
+
+        await waitFor(() => expect(screen.getByTestId('mock-form')).toBeTruthy());
+        // A resource declares its `form` mode; the runtime switch is noise in the product.
+        expect(screen.queryByRole('radiogroup', { name: 'Form mode' })).toBeNull();
+    });
+
+    it('shows the mode toggle when showModeToggle is opted in', async () => {
+        const transport = makeTransport();
+        const Wrapper = wrap(makeInjection(transport));
+
+        render(
+            <EditShell resource="widgets" id={null} showModeToggle slots={{ FormBody: MockFormBody }} />,
+            { wrapper: Wrapper },
+        );
+
+        await waitFor(() => expect(screen.getByTestId('mock-form')).toBeTruthy());
+        expect(screen.getByRole('radiogroup', { name: 'Form mode' })).toBeTruthy();
+    });
+
     it('binds `id === null` to create (save with null id)', async () => {
         const transport = makeTransport();
         const Wrapper = wrap(makeInjection(transport));

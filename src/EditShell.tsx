@@ -19,6 +19,7 @@ export function EditShell({
     readOnly = false,
     container = 'panel',
     form: formProp = 'raw',
+    showModeToggle = false,
     onSaved,
     onCancel,
     slots,
@@ -66,7 +67,9 @@ export function EditShell({
     return (
         <Container>
             <div data-frame-shell="edit">
-                {!effectiveReadOnly ? <Toggle value={form} onChange={setForm} /> : null}
+                {showModeToggle && !effectiveReadOnly ? (
+                    <Toggle value={form} onChange={setForm} />
+                ) : null}
                 <FormBody
                     schema={schema}
                     formData={formData}
